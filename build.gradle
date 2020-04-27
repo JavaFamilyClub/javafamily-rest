@@ -12,7 +12,7 @@ plugins {
    id 'java'
 }
 
-group 'org.javafamily'
+group 'club.javafamily'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
