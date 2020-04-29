@@ -1,5 +1,7 @@
 buildscript {
    ext {
+      springVersion = '5.1.8.RELEASE'
+      swaggerVersion = "2.9.2"
       jacksonVersion = '2.10.3'
       jsonPathVersion = '2.4.0'
       httpClientVersion = '4.5.12'
@@ -13,7 +15,7 @@ plugins {
 }
 
 group 'club.javafamily'
-version '1.0-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -23,17 +25,31 @@ repositories {
 }
 
 dependencies {
+   // spring
+   implementation "org.springframework:spring-core:${springVersion}"
+   implementation "org.springframework:spring-beans:${springVersion}"
+   implementation "org.springframework:spring-context:${springVersion}"
+   implementation "org.springframework:spring-context-support:${springVersion}"
+
+   // jackson
    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
    implementation("com.jayway.jsonpath:json-path:${jsonPathVersion}") {
       exclude(group: 'org.slf4j', module: 'slf4j-api')
    }
 
+   // httpclient
    implementation("org.apache.httpcomponents:httpclient:${httpClientVersion}") {
       exclude(group: 'commons-logging', module: 'commons-logging')
    }
 
+   // springfox swagger
+   implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+//   implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+
+   // logging
    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
+   // test
    testImplementation "org.junit.jupiter:junit-jupiter:${jupiterVersion}"
 }
 
