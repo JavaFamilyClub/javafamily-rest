@@ -5,21 +5,32 @@
 package org.javafamily.rest;
 
 import org.apache.http.*;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.javafamily.model.HttpHeaders;
+import org.javafamily.model.HttpParameters;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public interface QueryEngine {
 
    /**
     * Api base url.
+    * @return Rest api base url
     */
    String baseUrl();
+
+   /**
+    * Build RequestConfig for Every Request.
+    * @return RequestConfig
+    */
+   RequestConfig getRequestConfig();
 
    /**
     * Query Execution
@@ -27,17 +38,20 @@ public interface QueryEngine {
     * @param params Query parameters
     * @param headers Query headers
     * @return result string
+    * @exception Exception query error
     */
-   default String query(String api, List<NameValuePair> params, List<Header> headers) throws Exception {
+   default String query(String api, HttpParameters params, HttpHeaders headers) throws Exception {
       URIBuilder uriBuilder = new URIBuilder(baseUrl() + api);
 
-      uriBuilder.setParameters(requiredParameters());
-      uriBuilder.setParameters(params);
+      uriBuilder.addParameters(requiredParameters());
+      uriBuilder.addParameters(params.build());
 
       HttpGet httpGet = new HttpGet(uriBuilder.build());
 
+      httpGet.setConfig(getRequestConfig());
+
       requiredHeaders().stream().forEach(httpGet::addHeader);
-      headers.stream().forEach(httpGet::addHeader);
+      headers.build().stream().forEach(httpGet::addHeader);
 
       CloseableHttpClient httpClient = HttpClients.createDefault();
 

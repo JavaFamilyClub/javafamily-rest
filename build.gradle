@@ -7,11 +7,14 @@ buildscript {
       httpClientVersion = '4.5.12'
       logbackVersion = '1.2.3'
       jupiterVersion = '5.6.2'
+      jfUtilsVersion = '0.1.0-SNAPSHOT'
    }
 }
 
 plugins {
    id 'java'
+   id 'maven-publish'
+   id 'signing'
 }
 
 group 'club.javafamily'
@@ -21,16 +24,11 @@ sourceCompatibility = 1.8
 
 repositories {
    jcenter()
+   mavenLocal()
    mavenCentral()
 }
 
 dependencies {
-   // spring
-   implementation "org.springframework:spring-core:${springVersion}"
-   implementation "org.springframework:spring-beans:${springVersion}"
-   implementation "org.springframework:spring-context:${springVersion}"
-   implementation "org.springframework:spring-context-support:${springVersion}"
-
    // jackson
    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
    implementation("com.jayway.jsonpath:json-path:${jsonPathVersion}") {
@@ -46,11 +44,92 @@ dependencies {
    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 //   implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 
+   // utils
+   implementation "club.javafamily:javafamily-utils:${jfUtilsVersion}"
+
    // logging
    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
    // test
    testImplementation "org.junit.jupiter:junit-jupiter:${jupiterVersion}"
+}
+
+task sourcesJar(type: Jar) {
+   from sourceSets.main.allJava
+   archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+   from javadoc
+   archiveClassifier = 'javadoc'
+}
+
+publishing {
+   // 定义发布什么
+   publications {
+      mavenJava(MavenPublication) {
+         // groupId = project.group
+         // artifactId = project.name
+         // version = project.version
+         // groupId,artifactId,version，如果不定义，则会按照以上默认值执行
+         from components.java
+         artifact sourcesJar
+         artifact javadocJar
+         pom {
+            // 构件名称
+            // 区别于artifactId，可以理解为artifactName
+            name = 'JavaFamily Utils'
+            // 构件描述
+            description = 'JavaFamily Utils library'
+            // 构件主页
+            url = 'https://github.com/JavaFamilyClub/javafamily-utils'
+            // 许可证名称和地址
+            licenses {
+               license {
+                  name = 'The Apache License, Version 2.0'
+                  url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+               }
+            }
+            // 开发者信息
+            developers {
+               developer {
+                  name = 'JavaFamily'
+                  email = 'javafamily.club@outlook.com'
+               }
+            }
+            // 版本控制仓库地址
+            scm {
+               url = 'https://github.com/JavaFamilyClub/javafamily-utils'
+               connection = 'scm:git:git://github.com/JavaFamilyClub/javafamily-utils.git'
+               developerConnection = 'scm:git:ssh://git@github.com/JavaFamilyClub/javafamily-utils.git'
+            }
+         }
+      }
+   }
+   // 定义发布到哪里
+   repositories {
+      maven {
+         def snapshotsUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+         def releasesUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+
+         url = project.version.endsWith('-SNAPSHOT') ? snapshotsUrl : releasesUrl
+         credentials {
+            // 这里就是之前在issues.sonatype.org注册的账号
+            username sonatypeUsername
+            password sonatypePassword
+         }
+      }
+   }
+}
+
+signing {
+   sign publishing.publications.mavenJava
+}
+
+javadoc {
+   // <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   // 防止本地打开中文乱码
+   options.addStringOption("charset", "UTF-8")
 }
 
 test {
