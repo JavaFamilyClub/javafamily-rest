@@ -7,7 +7,7 @@ buildscript {
       httpClientVersion = '4.5.12'
       logbackVersion = '1.2.3'
       jupiterVersion = '5.6.2'
-      jfUtilsVersion = '0.1.0-SNAPSHOT'
+      jfUtilsVersion = '0.1.1'
    }
 }
 
@@ -18,7 +18,7 @@ plugins {
 }
 
 group 'club.javafamily'
-version '0.1.0-SNAPSHOT'
+version '0.1.1.RELEASE'
 
 sourceCompatibility = 1.8
 
@@ -55,7 +55,7 @@ dependencies {
 }
 
 task sourcesJar(type: Jar) {
-   from sourceSets.main.allJava
+   from sourceSets.main.allSource
    archiveClassifier = 'sources'
 }
 
@@ -68,21 +68,20 @@ publishing {
    // 定义发布什么
    publications {
       mavenJava(MavenPublication) {
-         // groupId = project.group
-         // artifactId = project.name
-         // version = project.version
-         // groupId,artifactId,version，如果不定义，则会按照以上默认值执行
+         groupId = project.group
+         artifactId = project.name
+         version = "${version}"
          from components.java
          artifact sourcesJar
          artifact javadocJar
          pom {
             // 构件名称
             // 区别于artifactId，可以理解为artifactName
-            name = 'JavaFamily Utils'
+            name = 'JavaFamily Rest Api Interface'
             // 构件描述
-            description = 'JavaFamily Utils library'
+            description = 'JavaFamily Rest Api library'
             // 构件主页
-            url = 'https://github.com/JavaFamilyClub/javafamily-utils'
+            url = 'https://github.com/JavaFamilyClub/javafamily-rest'
             // 许可证名称和地址
             licenses {
                license {
@@ -93,15 +92,17 @@ publishing {
             // 开发者信息
             developers {
                developer {
+                  id = 'JavaFamilyClub'
                   name = 'JavaFamily'
                   email = 'javafamily.club@outlook.com'
+                  organization = 'JavaFamily'
                }
             }
             // 版本控制仓库地址
             scm {
-               url = 'https://github.com/JavaFamilyClub/javafamily-utils'
-               connection = 'scm:git:git://github.com/JavaFamilyClub/javafamily-utils.git'
-               developerConnection = 'scm:git:ssh://git@github.com/JavaFamilyClub/javafamily-utils.git'
+               url = 'https://github.com/JavaFamilyClub/javafamily-rest'
+               connection = 'scm:git:git://github.com/JavaFamilyClub/javafamily-rest.git'
+               developerConnection = 'scm:git:ssh://git@github.com/JavaFamilyClub/javafamily-rest.git'
             }
          }
       }
