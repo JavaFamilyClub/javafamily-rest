@@ -36,6 +36,11 @@ public abstract class BaseQueryEngine implements QueryEngine {
       return baseUrl;
    }
 
+   @Override
+   public RequestConfig getRequestConfig() {
+      return requestConfig;
+   }
+
    public static final String DEFAULT_BASEURL = "localhost";
 
    private final String baseUrl;
