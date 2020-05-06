@@ -19,6 +19,7 @@ plugins {
 
 group 'club.javafamily'
 version '0.1.1.RELEASE'
+//version '0.1.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
