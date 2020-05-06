@@ -98,7 +98,6 @@ publishing {
                   organization = 'JavaFamily'
                }
             }
-            // 版本控制仓库地址
             scm {
                url = 'https://github.com/JavaFamilyClub/javafamily-rest'
                connection = 'scm:git:git://github.com/JavaFamilyClub/javafamily-rest.git'
@@ -107,7 +106,6 @@ publishing {
          }
       }
    }
-   // 定义发布到哪里
    repositories {
       maven {
          def snapshotsUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
@@ -115,7 +113,6 @@ publishing {
 
          url = project.version.endsWith('-SNAPSHOT') ? snapshotsUrl : releasesUrl
          credentials {
-            // 这里就是之前在issues.sonatype.org注册的账号
             username sonatypeUsername
             password sonatypePassword
          }
@@ -128,8 +125,6 @@ signing {
 }
 
 javadoc {
-   // <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   // 防止本地打开中文乱码
    options.addStringOption("charset", "UTF-8")
 }
 

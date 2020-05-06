@@ -24,13 +24,9 @@ public abstract class BaseQueryEngine implements QueryEngine {
 
    protected RequestConfig requestConfig() {
       return RequestConfig.custom()
-         // 设置连接超时时间(单位毫秒)
          .setConnectTimeout(5000)
-         // 设置请求超时时间(单位毫秒)
          .setConnectionRequestTimeout(5000)
-         // socket读写超时时间(单位毫秒)
          .setSocketTimeout(5000)
-         // 设置是否允许重定向(默认为true)
          .setRedirectsEnabled(true)
          .build();
    }
