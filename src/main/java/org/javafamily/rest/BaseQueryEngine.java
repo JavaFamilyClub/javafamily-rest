@@ -9,7 +9,7 @@ import org.javafamily.util.StringUtils;
 
 public abstract class BaseQueryEngine implements QueryEngine {
 
-   protected BaseQueryEngine(String baseUrl) {
+   public BaseQueryEngine(String baseUrl) {
       if(StringUtils.isEmpty(baseUrl)) {
          baseUrl = DEFAULT_BASEURL;
       }

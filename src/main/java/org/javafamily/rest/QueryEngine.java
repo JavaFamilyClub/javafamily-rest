@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.javafamily.model.HttpHeaders;
 import org.javafamily.model.HttpParameters;
+import org.javafamily.util.JsonUtils;
 
 public interface QueryEngine {
 
@@ -40,15 +41,29 @@ public interface QueryEngine {
    default String query(String api, HttpParameters params, HttpHeaders headers) throws Exception {
       URIBuilder uriBuilder = new URIBuilder(baseUrl() + api);
 
-      uriBuilder.addParameters(requiredParameters().build());
-      uriBuilder.addParameters(params.build());
+      HttpParameters httpParameters = requiredParameters();
+
+      if(httpParameters != null) {
+         uriBuilder.addParameters(requiredParameters().build());
+      }
+
+      if(params != null) {
+         uriBuilder.addParameters(params.build());
+      }
 
       HttpGet httpGet = new HttpGet(uriBuilder.build());
 
       httpGet.setConfig(getRequestConfig());
 
-      requiredHeaders().build().stream().forEach(httpGet::addHeader);
-      headers.build().stream().forEach(httpGet::addHeader);
+      HttpHeaders requiredHeaders = requiredHeaders();
+
+      if(requiredHeaders != null) {
+         requiredHeaders.build().stream().forEach(httpGet::addHeader);
+      }
+
+      if(headers != null) {
+         headers.build().stream().forEach(httpGet::addHeader);
+      }
 
       CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -57,6 +72,15 @@ public interface QueryEngine {
       HttpEntity entity = response.getEntity();
 
       return EntityUtils.toString(entity, charset());
+   }
+
+   default <T> T query(String api, HttpParameters params,
+                       HttpHeaders headers, Class<T> clazz)
+      throws Exception
+   {
+      String json = this.query(api, params, headers);
+
+      return JsonUtils.jsonToObject(json, clazz);
    }
 
    default HttpParameters requiredParameters() {
