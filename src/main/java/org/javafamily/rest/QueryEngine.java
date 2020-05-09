@@ -74,6 +74,16 @@ public interface QueryEngine {
       return EntityUtils.toString(entity, charset());
    }
 
+   /**
+    * Query for Model. {@link #query}
+    * @param api api URI
+    * @param params Query parameters
+    * @param headers Query headers
+    * @param clazz Model Class
+    * @param <T> for model
+    * @return Instance of T
+    * @throws Exception parse failed
+    */
    default <T> T query(String api, HttpParameters params,
                        HttpHeaders headers, Class<T> clazz)
       throws Exception

@@ -9,7 +9,7 @@ import org.javafamily.util.StringUtils;
 
 public abstract class BaseQueryEngine implements QueryEngine {
 
-   public BaseQueryEngine(String baseUrl) {
+   protected BaseQueryEngine(String baseUrl) {
       if(StringUtils.isEmpty(baseUrl)) {
          baseUrl = DEFAULT_BASEURL;
       }
@@ -22,7 +22,7 @@ public abstract class BaseQueryEngine implements QueryEngine {
       this.requestConfig = requestConfig();
    }
 
-   protected RequestConfig requestConfig() {
+   private RequestConfig requestConfig() {
       return RequestConfig.custom()
          .setConnectTimeout(5000)
          .setConnectionRequestTimeout(5000)
