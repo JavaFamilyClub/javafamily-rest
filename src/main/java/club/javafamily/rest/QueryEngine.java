@@ -6,7 +6,7 @@ package club.javafamily.rest;
 
 import club.javafamily.model.HttpHeaders;
 import club.javafamily.model.HttpParameters;
-import club.javafamily.util.JsonUtils;
+import club.javafamily.util.string.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
