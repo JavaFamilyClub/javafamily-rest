@@ -2,10 +2,10 @@
  * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  */
 
-package org.javafamily.rest;
+package club.javafamily.rest;
 
+import club.javafamily.util.StringUtils;
 import org.apache.http.client.config.RequestConfig;
-import org.javafamily.util.StringUtils;
 
 public abstract class BaseQueryEngine implements QueryEngine {
 

@@ -2,7 +2,7 @@
  * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  */
 
-package org.javafamily.model;
+package club.javafamily.model;
 
 import org.apache.http.NameValuePair;
 

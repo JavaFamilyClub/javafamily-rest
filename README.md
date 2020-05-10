@@ -3,7 +3,7 @@ JavaFamily Rest Interfaces
 
 ## Implementation
 
-* Create a class to extends `org.javafamily.rest.BaseQueryEngine` or implement `org.javafamily.rest.QueryEngine`
+* Create a class to extends `BaseQueryEngine` or implement `QueryEngine`
 * add `baseUrl` of rest api
-* call `org.javafamily.rest.QueryEngine.query` method getting result.
+* call `QueryEngine.query` method getting result.
 

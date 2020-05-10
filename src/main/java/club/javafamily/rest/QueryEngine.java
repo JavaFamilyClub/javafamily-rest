@@ -2,8 +2,11 @@
  * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  */
 
-package org.javafamily.rest;
+package club.javafamily.rest;
 
+import club.javafamily.model.HttpHeaders;
+import club.javafamily.model.HttpParameters;
+import club.javafamily.util.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,9 +15,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.javafamily.model.HttpHeaders;
-import org.javafamily.model.HttpParameters;
-import org.javafamily.util.JsonUtils;
 
 public interface QueryEngine {
 
