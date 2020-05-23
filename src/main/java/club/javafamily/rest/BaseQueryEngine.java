@@ -4,7 +4,7 @@
 
 package club.javafamily.rest;
 
-import club.javafamily.util.StringUtils;
+import club.javafamily.util.string.StringUtils;
 import org.apache.http.client.config.RequestConfig;
 
 public abstract class BaseQueryEngine implements QueryEngine {
