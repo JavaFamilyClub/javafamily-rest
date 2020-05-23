@@ -1,5 +1,8 @@
 # javafamily-rest
-JavaFamily Rest Interfaces
+
+[![Build](https://github.com/JavaFamilyClub/javafamily-rest/workflows/Build/badge.svg)](https://github.com/JavaFamilyClub/javafamily-rest/actions?query=workflow%3ABuild)
+
+> JavaFamily Rest Interfaces
 
 ## Implementation
 
